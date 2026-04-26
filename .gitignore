@@ -9,6 +9,7 @@ __pycache__/
 
 data/*
 !data/.gitkeep
+!data/processed/
 !data/processed/decision_system_df.parquet
 
 models/*
