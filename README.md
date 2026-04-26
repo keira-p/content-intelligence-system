@@ -13,7 +13,7 @@ To produce a practical promotion plan, it combines:
 👉 In simple terms:
 *It helps decide which content to promote so that it performs well without taking on unnecessary risk.*
 
-🚀 [Live demo]()
+🚀 [Live demo](https://promotions-planner.streamlit.app/)
 
 ---
 
