@@ -1,111 +1,96 @@
-# Content Intelligence System
+# Content Promotion Planner
 
 ## Overview
 
-This project explores how to evaluate text-based content across three dimensions:
+This project explores how machine learning predictions can be used to support real-world content promotion decisions.
 
-* **Category** – what the content is about
-* **Suitability** – whether it is appropriate for a younger / brand-sensitive audience
-* **Performance** – how well the content is likely to engage users
+To produce a practical promotion plan, it combines:
 
-The goal is to simulate how a brand or marketing partner might assess content before deciding whether to promote or associate with it.
+- **Engagement prediction** (how likely content is to perform well)
+- **Safety assessment** (how suitable content is for a brand)
+- **Simple business rules** (budget and risk thresholds)
+
+👉 In simple terms:
+*It helps decide which content to promote so that it performs well without taking on unnecessary risk.*
+
+🚀 [Live demo]()
 
 ---
 
-## Dataset
+## Problem
 
-The dataset consists of Reddit posts, where each row represents a single post with associated text, metadata, and engagement signals.
+Marketing teams often need to decide:
 
-Initial observations:
+> *Which content should we promote, given limited budget and brand safety constraints?*
 
-* The primary text feature is the **post title**
-* The `body` field is not populated and is not used
-* Engagement is approximated using:
-
-  * `score` (upvotes)
-  * `num_comments`
-  * `upvote_ratio`
-* Additional metadata includes subreddit, timestamps, and content flags (e.g. NSFW)
-
-Reddit is used as a proxy for real-world content, where tone and suitability vary widely.
+This project simulates that decision process by turning model outputs into an actionable plan.
 
 ---
 
 ## Approach
 
-This project will follow a simple, end-to-end pipeline:
+The project is structured as a lightweight end-to-end pipeline:
 
-1. **Exploratory Data Analysis (EDA)**
+### 1. Content scoring
 
-   * Understand structure, distributions, and data quality
-   * Identify usable signals and limitations
+Each post is scored on:
+- **Engagement probability** - likelihood of strong performance
+- **Safety risk** - likelihood of being unsuitable for promotion
 
-2. **Feature Engineering**
+These are derived from Reddit data as a proxy for real-world content.
 
-   * Text processing on titles
-   * Creation of proxy labels for:
+---
 
-     * category
-     * suitability
-     * performance
+### 2. Decision layer
 
-3. **Modelling**
+A simple planner applies business rules:
 
-   * Classification model for content category
-   * Heuristic or model-based approach for suitability
-   * Predictive model for performance (engagement proxy)
+1. Filter out content above a safety threshold
+2. Rank remaining content by engagement
+3. Promote the top posts within a fixed budget
 
-4. **Output**
+This produces:
+- A recommended promotion set
+- Expected performance and value
+- Visibility into trade-offs (budget vs safety vs reach)
 
-   * A simple interface (API or app) to evaluate new content
+---
+
+### 3. Interactive prototype
+
+A Streamlit app allows users to explore:
+
+- How many posts to promote
+- Expected return (ROI)
+- How changing safety tolerance or budget affects outcomes
+
+The app focuses on the **decision layer**, not model training.
+
+---
+
+## Dataset
+
+The dataset consists of Reddit posts, used as a proxy for real-world content:
+
+- **Text**: post titles (primary feature)
+- **Engagement signals**:
+  - `score` (upvotes)
+  - `num_comments`
+  - `upvote_ratio`
+- **Metadata**:
+  - subreddit
+  - timestamps
+  - NSFW flags
+
+Reddit provides a wide range of tone, quality, and suitability, making it useful for simulating content evaluation problems.
 
 ---
 
 ## Project Structure
 
 ```text
-├── data/           # raw and processed data (not committed)
-├── notebooks/      # EDA and experimentation
-├── .gitignore
+├── data/                # raw and processed data (not committed)
+├── notebooks/           # modelling and decision logic
+├── app.py               # Streamlit prototype
+├── requirements.txt
 └── README.md
-```
-
----
-
-## Setup
-
-Create and activate the project environment:
-
-```bash
-pyenv virtualenv 3.12.9 content-intel-env
-pyenv local content-intel-env
-```
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-Launch the project:
-
-```bash
-jupyter lab
-# or
-code .
-```
-
----
-
-## Current Status
-
-* Dataset loaded and initial structure explored
-* EDA in progress
-* Label definition and modelling to follow
-
----
-
-## Notes
-
-This is a portfolio project designed to simulate real-world product use cases.
-Data and labels are approximations rather than production-grade ground truth.

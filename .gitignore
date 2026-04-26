@@ -5,7 +5,10 @@ __pycache__/
 .ipynb_checkpoints/
 .DS_Store
 
+*.parquet
+
 data/*
 !data/.gitkeep
+!data/processed/decision_system_df.parquet
 
 models/*
